@@ -21,7 +21,9 @@ trap_y = trapezoidal(x, a_trap, b_trap, c_trap, d_trap)
 # Візуалізація
 plt.figure(figsize=(10, 6))
 
+# Ділимо canvas на 2 графіки, і малюємо той що зліва (третій аргумент)
 plt.subplot(1, 2, 1)
+
 plt.plot(x, tri_y, 'b', label="Triangular")
 plt.title('Трикутна функція приналежності')
 plt.xlabel('x')
