@@ -1,24 +1,13 @@
 import numpy as np
+import skfuzzy as fuzz
 import matplotlib.pyplot as plt
 
-# Узагальнена дзвінова функція приналежності
-def generalized_bell(x, a, b, c):
-    return 1 / (1 + np.abs((x - c) / a)**(2 * b))
-
-# Параметри функції
 x = np.linspace(0, 10, 100)
-a = 2  # ширина
-b = 4  # крутизна
-c = 5  # центр
 
-# Обчислення функції
-bell_y = generalized_bell(x, a, b, c)
+generalized_bell = fuzz.gbellmf(x, a=2, b=4, c=5)
 
 # Візуалізація
-plt.plot(x, bell_y, label="Узагальнений дзвін", color='green')
-plt.title('Функція приналежності "Узагальнений дзвін"')
-plt.xlabel('x')
-plt.ylabel('Приналежність')
-plt.grid(True)
+plt.plot(x, generalized_bell, label='Узагальнений дзвін')
+plt.title('Узагальнений дзвін')
 plt.legend()
 plt.show()
