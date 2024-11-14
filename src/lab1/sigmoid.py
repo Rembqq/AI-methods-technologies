@@ -16,7 +16,7 @@ double_sided = fuzz.psigmf(x, 0, 1, 0, 1)  # (x, c1, b1, c2, b2)
 # Несиметрична сігмоїдна функція
 asymmetric = fuzz.dsigmf(x, 0, 1, 1, -1)  # (x, c, b1, b2)
 
-# Візуалізація
+
 plt.figure(figsize=(10, 6))
 plt.plot(x, sigmoid_left, label='Одностороння (ліва)', linestyle='--')
 plt.plot(x, sigmoid_right, label='Одностороння (права)', linestyle='--')

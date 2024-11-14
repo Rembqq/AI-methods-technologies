@@ -13,7 +13,7 @@ probabilistic_conjunction = v1 * v2
 # Вірогідна диз'юнкція: вірогідний максимум
 probabilistic_disjunction = v1 + v2 - v1 * v2
 
-# Візуалізація
+
 plt.plot(x, probabilistic_conjunction, label='Вірогідна Кон\'юнкція')
 plt.plot(x, probabilistic_disjunction, label='Вірогідна Диз\'юнкція')
 plt.title('Вірогідна інтерпретація')

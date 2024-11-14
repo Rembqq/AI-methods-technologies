@@ -13,7 +13,7 @@ s_function = fuzz.smf(x, 3, 7)
 # Пі-функція
 pi_function = fuzz.pimf(x, 3, 5, 7, 9)
 
-# Візуалізація
+
 plt.plot(x, z_function, label='Z-функція')
 plt.plot(x, s_function, label='S-функція')
 plt.plot(x, pi_function, label='Пі-функція')
