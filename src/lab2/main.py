@@ -3,15 +3,6 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 from matplotlib import pyplot as plt
 
-
-def calculate_y(x):
-    return np.where(x == 0, 1, np.sin(x) / x)
-
-
-def calculate_z(x, y):
-    return (x - y) * np.sin(x + y)
-
-
 def create_fuzzy_variables(fuzz_type, min_val, max_val, segments):
     domain = np.linspace(min_val, max_val, 500)
     mx = ctrl.Antecedent(domain, "mx")
@@ -70,6 +61,14 @@ def run_fuzzy_simulation(fuzz_type, min_val, max_val, segments, title, use_diag_
     plt.show()
 
     print(f"{title} Error: {error:.2%}")
+
+def calculate_y(x):
+    return np.where(x == 0, 1, np.sin(x) / x)
+
+
+def calculate_z(x, y):
+    return (x - y) * np.sin(x + y)
+
 
 def setup_memberships(fuzzy_var, midpoints, mf_type, range_size, interval):
     if mf_type == "Trapezoidal":

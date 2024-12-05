@@ -3,13 +3,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import SimpleRNN, Dense
+from keras.layers import SimpleRNN, Dense, LSTM
 from sklearn.metrics import mean_absolute_error
-from keras.layers import LSTM
 
+# Генерація даних відповідно до нових формул
 np.random.seed(42)
-X = np.random.rand(1000, 10)  # 1000 зразків із 10 ознаками
-y = X.sum(axis=1) + np.random.normal(scale=0.1, size=(1000,))  # Цільова змінна з невеликим шумом
+a = np.random.uniform(0.1, 10, 1000)  # Уникнення поділу на 0
+b = np.random.uniform(0.1, 10, 1000)
+c = np.random.uniform(0.1, 10, 1000)
+
+# Формула для моделювання даних
+x = -25 / a + c - b * a
+y = (1 + c * b / 2)
+z = x / y  # Вихід
+
+# Перетворення у форму даних для моделі
+X = np.stack([a, b, c], axis=1)  # Вхід: a, b, c
+y = z  # Вихід: z
 
 # Розподіл даних на навчальну та тестову вибірки
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -18,7 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 X_train_rnn = np.expand_dims(X_train, axis=1)
 X_test_rnn = np.expand_dims(X_test, axis=1)
 
-# Модифікована функція для побудови, навчання та збереження історії навчання
+# Функція для побудови, навчання та візуалізації моделі
 def build_and_evaluate_model_with_plots(model_type, layers, neurons, X_train, y_train, X_test, y_test, config_name):
     model = Sequential()
 
@@ -46,7 +56,7 @@ def build_and_evaluate_model_with_plots(model_type, layers, neurons, X_train, y_
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
 
     # Навчання з збереженням історії
-    history = model.fit(X_train, y_train, epochs=200, batch_size=16, verbose=0)  # Зменшення кількості епох
+    history = model.fit(X_train, y_train, epochs=200, batch_size=16, verbose=0)
 
     # Оцінка
     predictions = model.predict(X_test)
@@ -67,10 +77,10 @@ def build_and_evaluate_model_with_plots(model_type, layers, neurons, X_train, y_
     # Графік 2: Залежність помилки від епох
     plt.subplot(1, 2, 2)
     plt.plot(history.history['loss'], color='red')
-    plt.ylim(0.0, 0.4)  # Обмеження діапазону Y від 0.0 до 0.4
+    plt.ylim(0.0, 0.4)
     plt.title(f"Крива втрат для: {model_type.capitalize()}, {config_name}")
     plt.xlabel("Епохи")
-    plt.ylabel("Втрати")
+    plt.ylabel("Помилка")
 
     # Показати та зберегти графік
     plt.tight_layout()
@@ -78,7 +88,6 @@ def build_and_evaluate_model_with_plots(model_type, layers, neurons, X_train, y_
 
     return relative_mae
 
-# Дослідження та побудова графіків
 results_with_plots = []
 
 # Feed Forward (пряме розповсюдження)

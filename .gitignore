@@ -2,3 +2,5 @@
 *.iml
 VIRTUAL-ENVIRONMENT-PATH-HERE
 venv/
+v*.py
+spare*.py
