@@ -99,7 +99,7 @@ class Elman555(nn.Module):
         return x
 
 
-def train_and_evaluate(network, epochs=5000):
+def train_and_evaluate(network, epochs=4000):
     net = network()
     criterion = nn.MSELoss()
     optimizer = optim.Adam(net.parameters(), lr=0.001)
